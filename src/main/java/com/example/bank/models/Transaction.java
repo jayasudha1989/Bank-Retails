@@ -3,7 +3,7 @@ package com.example.bank.models;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
-// TODO Add support for Bank charges, currency conversion, setup repeat payment/ standing order
+
 @Entity
 @Table(name = "transaction", schema = "online_bank")
 public class Transaction {
