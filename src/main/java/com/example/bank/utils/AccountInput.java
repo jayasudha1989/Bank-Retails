@@ -57,18 +57,7 @@ public class AccountInput {
                 '}';
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        AccountInput that = (AccountInput) o;
-        return Objects.equals(accountNumber, that.accountNumber);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(accountNumber);
-    }
+   
 
 
 	
