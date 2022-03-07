@@ -24,12 +24,7 @@ import java.util.Map;
 @RequestMapping("api/v1")
 public class AccountRestController {
 
-
-    private static final String INVALID_SEARCH_CRITERIA =
-            "The provided sort code or account number did not match the expected format";
-
-    private static final String NO_ACCOUNT_FOUND =
-            "Unable to find an account matching this sort code and account number";
+    private static final String NO_ACCOUNT_FOUND = "Unable to find an account  account number";
 
     private final AccountService accountService;
 
@@ -42,48 +37,31 @@ public class AccountRestController {
     
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public ResponseEntity login(@RequestBody String accountName, HttpServletRequest req) {
-        
-           
-	    	    Account account = accountService.getAccount(accountName);
-	
-	            // Return the account details, or warn that no account was found for given input
-	            if (account == null) {
-	                return new ResponseEntity(NO_ACCOUNT_FOUND, HttpStatus.NO_CONTENT);
-	            } else {
-	                return new ResponseEntity(account, HttpStatus.OK);
-	            }
-		   
-       
+    	// Return the account details, if not create new account
+    	Account account = accountService.patchAccount(accountName);
+
+        if (account == null) {
+            return new ResponseEntity(NO_ACCOUNT_FOUND, HttpStatus.NO_CONTENT);
+        } else {
+            return new ResponseEntity(account, HttpStatus.OK);
+        }
     }
 
     
 
    
-    @RequestMapping(value = "/accounts", method = RequestMethod.POST)
+    @RequestMapping(value = "/account", method = RequestMethod.POST)
     public ResponseEntity checkAccountBalance(@RequestBody String accountName, HttpServletRequest req) {
-            // Attempt to retrieve the account information
-    	    Account account = accountService.getAccount(accountName);
+        // retrove acc information
+	    Account account = accountService.getAccount(accountName);
 
-            // Return the account details, or warn that no account was found for given input
-            if (account == null) {
-                return new ResponseEntity(NO_ACCOUNT_FOUND, HttpStatus.NO_CONTENT);
-            } else {
-                return new ResponseEntity(account, HttpStatus.OK);
-            }
-        
+        // Return the account details, or warn that no account was found for given input
+        if (account == null) {
+            return new ResponseEntity(NO_ACCOUNT_FOUND, HttpStatus.NO_CONTENT);
+        } else {
+            return new ResponseEntity(account, HttpStatus.OK);
+        }
     }
 
-	/*
-	 * @ResponseStatus(HttpStatus.BAD_REQUEST)
-	 * 
-	 * @ExceptionHandler(MethodArgumentNotValidException.class) public Map<String,
-	 * String> handleValidationExceptions( MethodArgumentNotValidException ex) {
-	 * Map<String, String> errors = new HashMap<>();
-	 * 
-	 * ex.getBindingResult().getAllErrors().forEach((error) -> { String fieldName =
-	 * ((FieldError) error).getField(); String errorMessage =
-	 * error.getDefaultMessage(); errors.put(fieldName, errorMessage); });
-	 * 
-	 * return errors; }
-	 */
+	
 }
