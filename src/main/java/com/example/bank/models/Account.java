@@ -22,7 +22,7 @@ public class Account {
 
     private String ownerName;
 
-    private transient List<Transaction> transactions;
+    
 
     public Account() {}
     public Account(long id, String accountNumber, double currentBalance,double owingBalance, String ownerName) {
@@ -43,7 +43,6 @@ public class Account {
         this.accountNumber = accountNumber;
         this.currentBalance = currentBalance;
         this.ownerName = ownerName;
-        this.transactions = transactions;
     }
 
     public long getId() {
@@ -72,12 +71,7 @@ public class Account {
         this.ownerName = ownerName;
     }
    
-    public List<Transaction> getTransactions() {
-        return transactions;
-    }
-    public void setTransactions(List<Transaction> transactions) {
-        this.transactions = transactions;
-    }
+   
 
     @Override
     public String toString() {
