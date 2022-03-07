@@ -5,8 +5,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import java.util.List;
 
-// TODO Add support for multiple account types (business, savings, etc.)
-// TODO Add support for foreign currency accounts
+
 @Entity
 @Table(name = "account", schema = "online_bank")
 public class Account {
