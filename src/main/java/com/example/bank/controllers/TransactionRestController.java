@@ -25,7 +25,6 @@ import java.util.Map;
 @RequestMapping("api/v1")
 public class TransactionRestController {
 
-
     private final TransactionService transactionService;
 
     @Autowired
@@ -33,8 +32,6 @@ public class TransactionRestController {
         this.transactionService = transactionService;
     }
     
-    
-
     @RequestMapping(value = "/transactions", method = RequestMethod.POST)
     public ResponseEntity checkAccountBalance(@RequestBody TransactionInput transactionInput, HttpServletRequest req) {
             boolean isComplete = transactionService.makeTransfer(transactionInput);
@@ -48,18 +45,4 @@ public class TransactionRestController {
             return new ResponseEntity(isComplete, HttpStatus.OK);
     }
 
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler(MethodArgumentNotValidException.class)
-    public Map<String, String> handleValidationExceptions(
-            MethodArgumentNotValidException ex) {
-        Map<String, String> errors = new HashMap<>();
-
-        ex.getBindingResult().getAllErrors().forEach((error) -> {
-            String fieldName = ((FieldError) error).getField();
-            String errorMessage = error.getDefaultMessage();
-            errors.put(fieldName, errorMessage);
-        });
-
-        return errors;
-    }
 }
