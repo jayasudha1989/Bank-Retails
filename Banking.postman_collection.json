@@ -1,71 +1,62 @@
-{
-	"info": {
-		"_postman_id": "527d1a6d-ae07-4484-947b-e7f5501c1c6b",
-		"name": "Banking",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
-	},
-	"item": [
+Login as client:
+    URL:   http://localhost:8080/api/v1/login
+    http method: POST
+	Request body: Harri
+	
+	Expected Output: 
+	if account is present in table.
 		{
-			"name": "Account Balance",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n\t\"sortCode\": \"53-68-92\",\n\t\"accountNumber\": \"73084635\"\n}\n\n"
-				},
-				"url": {
-					"raw": "localhost:8080/api/v1/accounts",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"api",
-						"v1",
-						"accounts"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Make Transaction",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n\t\"sourceAccount\": {\n\t\t\"sortCode\": \"53-68-92\",\n\t\t\"accountNumber\": \"73084635\"\n\t},\n\t\"targetAccount\": {\n\t\t\"sortCode\": \"65-93-37\",\n\t\t\"accountNumber\": \"21956204\"\n\t},\n\t\"amount\": 105.0,\n\t\"reference\": \"My ref\",\n\t\"latitude\": 66.23423423,\n\t\"longitude\": 105.234234\n}"
-				},
-				"url": {
-					"raw": "localhost:8080/api/v1/transactions",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"api",
-						"v1",
-						"transactions"
-					]
-				}
-			},
-			"response": []
+			"id": 1,
+			"accountNumber": "<AcNo>",
+			"currentBalance": 0.0,
+			"owingBalance": 300.0,
+			"ownerName": "Harri",
 		}
-	]
-}
+	Create new client if not yet exists. and return the details.
+-----------------------------------------------------------------
+Top Up:
+
+    URL:   http://localhost:8080/api/v1/topup
+    http method: POST
+	Request body: {
+					"amount" 		: "100",
+					"accountNumber" : "<AcNo>", 
+					"accountName"	: "Harry"
+				  }  
+	
+	Expected Output: True (	Response 200)
+--------------------------------------------------------------------
+Pay/Transaction:
+
+	URL:   http://localhost:8080/api/v1/transactions
+    http method: POST
+	Request body: 
+				{
+				 "amount" : "100",
+				"sourceAccount":{
+					   "accountName": "Harry",
+						"accountNumber": "<AcNo>"
+					  },
+						 
+				"targetAccount":{
+					   "accountName": "Tom",
+						"accountNumber": "<AcNo>"
+					  }
+			  } 
+	
+	Expected Output: True (Response 200)
+-----------------------------------------------------------------------
+Get Account Details:
+	URL:   http://localhost:8080/api/v1/account
+    http method: POST
+	Request body: Harry
+				
+	
+	Expected Output:  {
+						"id": 1,
+						"accountNumber": "<AcNo>",
+						"currentBalance": 0.0,
+						"owingBalance": 300.0,
+						"ownerName": "Harri",
+					  }            
+    
