@@ -141,7 +141,7 @@ public class TransactionService {
 	    			targetAccount.setOwingBalance(0D);
 	    		}else {
 	    			amt = Math.abs((amount-targetAccount.getOwingBalance()));
-	    			double total = amt+targetAccount.getOwingBalance();
+	    			double total = amt;
 	    			
 	    			targetAccount.setCurrentBalance(targetAccount.getCurrentBalance());
 	    			targetAccount.setOwingBalance(total);
